@@ -1,8 +1,8 @@
 use crate::eng_trace;
-use sdl2::{Sdl, EventPump};
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use sdl2::video::Window as SdlWindow;
+use sdl2::{EventPump, Sdl};
 
 use bgfx::*;
 use bgfx_rs::bgfx;
@@ -10,11 +10,11 @@ use raw_window_handle::{HasRawWindowHandle, RawWindowHandle};
 
 // TEMP: doing bgfx-rs stuff in here just to get it set up
 
-pub struct Window{
+pub struct Window {
     sdl_context: Sdl,
     sdl_window: SdlWindow,
 
-    event_pump: EventPump
+    event_pump: EventPump,
 }
 
 impl Window {
@@ -24,7 +24,8 @@ impl Window {
         let sdl_context = sdl2::init().map_err(|e| e.to_string())?;
         let video_subsystem = sdl_context.video().map_err(|e| e.to_string())?;
 
-        let sdl_window = video_subsystem.window(&title, width, height)
+        let sdl_window = video_subsystem
+            .window(&title, width, height)
             .position_centered()
             .vulkan()
             .build()
@@ -32,10 +33,10 @@ impl Window {
 
         let event_pump = sdl_context.event_pump().map_err(|e| e.to_string())?;
 
-        let window = Window{
+        let window = Window {
             sdl_context,
             sdl_window,
-            event_pump
+            event_pump,
         };
 
         Ok(window)
@@ -66,10 +67,11 @@ impl Window {
         'running: loop {
             for event in self.event_pump.poll_iter() {
                 match event {
-                    Event::Quit {..} |
-                    Event::KeyDown { keycode: Some(Keycode::Escape), .. } => {
-                        break 'running 
-                    },
+                    Event::Quit { .. }
+                    | Event::KeyDown {
+                        keycode: Some(Keycode::Escape),
+                        ..
+                    } => break 'running,
                     _ => {}
                 }
             }
