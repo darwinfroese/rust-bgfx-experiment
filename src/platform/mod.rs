@@ -2,7 +2,7 @@ pub mod error;
 pub mod logging;
 pub mod logging_macros;
 pub mod renderer;
-pub mod window;
+mod window;
 
 pub struct Platform {
     pub renderer: renderer::Renderer,
@@ -18,7 +18,7 @@ impl Platform {
             settings.window_height,
         )?;
 
-        let renderer = renderer::Renderer::new();
+        let renderer = renderer::RendererBuilder::new(window.get_platform_data()).build()?;
 
         Ok(Platform { window, renderer })
     }
