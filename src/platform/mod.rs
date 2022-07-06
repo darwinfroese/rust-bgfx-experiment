@@ -1,17 +1,17 @@
+pub mod error;
 pub mod logging;
-
 pub mod logging_macros;
 pub mod renderer;
 pub mod window;
-use std::error::Error;
 
 pub struct Platform {
-    pub window: window::Window,
     pub renderer: renderer::Renderer,
+
+    window: window::Window,
 }
 
 impl Platform {
-    pub fn new(settings: &PlatformBuilder) -> Result<Platform, Box<dyn Error>> {
+    pub fn new(settings: &PlatformBuilder) -> error::Result<Platform> {
         let window = window::Window::new(
             &settings.title,
             settings.window_width,
@@ -44,21 +44,7 @@ impl PlatformBuilder {
         }
     }
 
-    pub fn title<S>(&mut self, title: S) -> &mut PlatformBuilder
-    where
-        S: Into<String>,
-    {
-        self.title = title.into();
-        self
-    }
-
-    pub fn size(&mut self, window_width: u32, window_height: u32) -> &mut PlatformBuilder {
-        self.window_width = window_width;
-        self.window_height = window_height;
-        self
-    }
-
-    pub fn build(&self) -> Result<Platform, Box<dyn std::error::Error>> {
+    pub fn build(&self) -> error::Result<Platform> {
         Platform::new(self)
     }
 }

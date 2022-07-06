@@ -1,4 +1,6 @@
 use crate::eng_trace;
+use crate::platform::error;
+
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use sdl2::video::Window as SdlWindow;
@@ -18,23 +20,22 @@ pub struct Window {
 }
 
 impl Window {
-    pub fn new<S>(title: S, width: u32, height: u32) -> Result<Window, Box<dyn std::error::Error>>
+    pub fn new<S>(title: S, width: u32, height: u32) -> error::Result<Window>
     where
         S: Into<String>,
     {
         eng_trace!("Creating a new window");
 
-        let sdl_context = sdl2::init().map_err(|e| e.to_string())?;
-        let video_subsystem = sdl_context.video().map_err(|e| e.to_string())?;
+        let sdl_context = sdl2::init()?;
+        let video_subsystem = sdl_context.video()?;
 
         let sdl_window = video_subsystem
             .window(&title.into(), width, height)
             .position_centered()
             .vulkan()
-            .build()
-            .map_err(|e| e.to_string())?;
+            .build()?;
 
-        let event_pump = sdl_context.event_pump().map_err(|e| e.to_string())?;
+        let event_pump = sdl_context.event_pump()?;
 
         let window = Window {
             sdl_context,
