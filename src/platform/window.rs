@@ -18,14 +18,17 @@ pub struct Window {
 }
 
 impl Window {
-    pub fn new(title: String, width: u32, height: u32) -> Result<Window, String> {
+    pub fn new<S>(title: S, width: u32, height: u32) -> Result<Window, Box<dyn std::error::Error>>
+    where
+        S: Into<String>,
+    {
         eng_trace!("Creating a new window");
 
         let sdl_context = sdl2::init().map_err(|e| e.to_string())?;
         let video_subsystem = sdl_context.video().map_err(|e| e.to_string())?;
 
         let sdl_window = video_subsystem
-            .window(&title, width, height)
+            .window(&title.into(), width, height)
             .position_centered()
             .vulkan()
             .build()
