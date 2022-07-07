@@ -1,3 +1,4 @@
+mod application;
 mod platform;
 
 fn main() {
@@ -5,7 +6,11 @@ fn main() {
 
     app_trace!("Launching application");
 
-    let _platform = platform::PlatformBuilder::new("Rust BGFX Experminte", 1280, 720)
+    let platform = platform::PlatformBuilder::new("Rust BGFX Experminte", 1280, 720)
         .build()
         .unwrap();
+
+    let application = application::Application::new(platform);
+
+    application.run();
 }
