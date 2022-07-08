@@ -10,7 +10,7 @@ fn main() {
         .build()
         .unwrap();
 
-    let application = application::Application::new(platform);
+    let mut application = application::Application::new(platform);
 
     application.run();
 }

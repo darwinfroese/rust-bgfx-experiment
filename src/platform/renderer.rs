@@ -17,12 +17,13 @@ impl Renderer {
                 ..Default::default()
             },
         );
-        bgfx::set_view_rect(0, 0, 0, 800, 600);
+
+        bgfx::set_view_rect(0, 0, 0, 1280, 720);
 
         Renderer {}
     }
 
-    pub fn draw_text(self) {
+    pub fn draw(&self) {
         bgfx::dbg_text_clear(DbgTextClearArgs::default());
 
         bgfx::dbg_text(0, 1, 0x0f, "Color can be changed with ANSI \x1b[9;me\x1b[10;ms\x1b[11;mc\x1b[12;ma\x1b[13;mp\x1b[14;me\x1b[0m code too.");
@@ -34,9 +35,10 @@ impl Renderer {
             0x3f,
             "Description: Initialization and debug text with bgfx-rs Rust API.",
         );
-        //         bgfx::touch(0);
 
-        //         bgfx::frame(false);
+        bgfx::touch(0);
+
+        bgfx::frame(false);
     }
 }
 
@@ -54,8 +56,8 @@ impl RendererBuilder {
 
         let mut init = Init::new();
         init.type_r = RendererType::Vulkan;
-        init.resolution.width = 800;
-        init.resolution.height = 600;
+        init.resolution.width = 1280;
+        init.resolution.height = 720;
         init.resolution.reset = ResetFlags::VSYNC.bits();
         init.platform_data = platform_data;
 

@@ -1,4 +1,5 @@
 pub mod error;
+pub mod events;
 pub mod logging;
 pub mod logging_macros;
 pub mod renderer;
@@ -21,6 +22,10 @@ impl Platform {
         let renderer = renderer::RendererBuilder::new(window.get_platform_data()).build()?;
 
         Ok(Platform { window, renderer })
+    }
+
+    pub fn update(&mut self) -> Vec<events::Event> {
+        self.window.update()
     }
 }
 

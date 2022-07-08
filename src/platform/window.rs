@@ -1,5 +1,6 @@
 use crate::eng_trace;
 use crate::platform::error;
+use crate::platform::events;
 
 use sdl2::video::Window as SdlWindow;
 use sdl2::{EventPump, Sdl};
@@ -42,6 +43,23 @@ impl Window {
         Ok(window)
     }
 
+    pub fn update(&mut self) -> Vec<events::Event> {
+        let mut events = Vec::new();
+        for event in self.event_pump.poll_iter() {
+            match event {
+                sdl2::event::Event::Quit { .. } => {
+                    events.push(events::Event::Quit);
+                }
+                sdl2::event::Event::KeyDown { .. } => {
+                    events.push(events::Event::Quit);
+                }
+                _ => (),
+            }
+        }
+
+        events
+    }
+
     pub fn get_platform_data(&self) -> PlatformData {
         let mut pd = PlatformData::new();
 
@@ -82,4 +100,8 @@ impl Window {
 
         return pd;
     }
+
+    fn create_key_event(self) {}
+
+    fn create_quit_event(self) {}
 }
