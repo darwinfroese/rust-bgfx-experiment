@@ -1,5 +1,7 @@
+use crate::platform::keys;
+
 #[derive(Debug)]
 pub enum Event {
     Quit,
-    KeyPressed,
+    KeyPressed { key: keys::Key },
 }

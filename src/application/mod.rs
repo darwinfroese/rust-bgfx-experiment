@@ -1,6 +1,7 @@
-use crate::app_trace; // TODO: how does this work?
+use crate::app_trace;
 use crate::platform;
 use crate::platform::events::Event;
+use crate::platform::keys;
 
 pub struct Application {
     platform: platform::Platform,
@@ -30,11 +31,26 @@ impl Application {
                         app_trace!("Quit event received. Exiting the application");
                         self.is_running = false; // TODO: should the rest of the events be processed?
                     }
+                    Event::KeyPressed {
+                        key: keys::Key::Escape,
+                    } => {
+                        app_trace!("Escape pressed. Exiting the application");
+                        self.is_running = false;
+                    }
+                    Event::KeyPressed {
+                        key: keys::Key::P, // TODO: map this to something that wouldn't be used in game
+                    } => {
+                        app_trace!("Toggling renderer profiling.");
+                        self.platform.renderer.toggle_profiling();
+                    }
                     _ => (),
                 }
             }
 
             self.platform.renderer.draw();
+            self.platform
+                .renderer
+                .draw_text_debug("BGFX Experiment in Rust!");
         }
     }
 }

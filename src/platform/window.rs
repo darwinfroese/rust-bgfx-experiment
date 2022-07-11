@@ -1,6 +1,7 @@
 use crate::eng_trace;
 use crate::platform::error;
 use crate::platform::events;
+use crate::to_key;
 
 use sdl2::video::Window as SdlWindow;
 use sdl2::{EventPump, Sdl};
@@ -50,8 +51,13 @@ impl Window {
                 sdl2::event::Event::Quit { .. } => {
                     events.push(events::Event::Quit);
                 }
-                sdl2::event::Event::KeyDown { .. } => {
-                    events.push(events::Event::Quit);
+                sdl2::event::Event::KeyDown {
+                    keycode: Some(keycode),
+                    ..
+                } => {
+                    events.push(events::Event::KeyPressed {
+                        key: to_key!(keycode),
+                    });
                 }
                 _ => (),
             }
@@ -100,8 +106,4 @@ impl Window {
 
         return pd;
     }
-
-    fn create_key_event(self) {}
-
-    fn create_quit_event(self) {}
 }

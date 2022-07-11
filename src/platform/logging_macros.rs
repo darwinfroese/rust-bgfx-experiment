@@ -1,5 +1,5 @@
 // TODO: Handle format strings
-
+// TODO: Empty macros in non-debug
 #[macro_export]
 macro_rules! eng_trace {
     ($x: expr) => {{
