@@ -7,14 +7,21 @@ pub type Result<T = ()> = result::Result<T, PlatformError>;
 pub enum PlatformError {
     SdlGenericError(String),
     SdlWindowBuildError(sdl2::video::WindowBuildError),
+
+    EcsMaxEntitiesError(),
 }
 
 impl fmt::Display for PlatformError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            PlatformError::SdlGenericError(_) => write!(f, "SDL Error"),
+            PlatformError::SdlGenericError(_) => {
+                write!(f, "SDL Error! A generic SDL error occurred")
+            }
             PlatformError::SdlWindowBuildError(ref cause) => {
                 write!(f, "SDL Window Build Error: {}", cause)
+            }
+            PlatformError::EcsMaxEntitiesError() => {
+                write!(f, "Max of {} entities reached", std::u16::MAX)
             }
         }
     }
@@ -25,6 +32,7 @@ impl Error for PlatformError {
         match *self {
             PlatformError::SdlGenericError(_) => None,
             PlatformError::SdlWindowBuildError(ref cause) => Some(cause),
+            PlatformError::EcsMaxEntitiesError() => None,
         }
     }
 }
