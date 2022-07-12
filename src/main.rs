@@ -6,7 +6,7 @@ fn main() {
 
     app_trace!("Launching application");
 
-    let platform = platform::PlatformBuilder::new("Rust BGFX Experminte", 1280, 720)
+    let platform = platform::PlatformBuilder::new("Rust BGFX Experiment", 1280, 720)
         .build()
         .unwrap();
 

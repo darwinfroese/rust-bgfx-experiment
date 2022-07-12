@@ -47,6 +47,7 @@ impl Application {
                 }
             }
 
+            // TODO: These should be put into the ECS
             self.platform.renderer.draw();
             self.platform
                 .renderer

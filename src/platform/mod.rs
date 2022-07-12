@@ -1,3 +1,4 @@
+pub mod ecs;
 pub mod error;
 pub mod events;
 pub mod keys;
@@ -8,6 +9,7 @@ mod window;
 
 pub struct Platform {
     pub renderer: renderer::Renderer,
+    pub ecs: ecs::EcsManager,
 
     window: window::Window,
 }
@@ -22,10 +24,21 @@ impl Platform {
 
         let renderer = renderer::RendererBuilder::new(window.get_platform_data()).build()?;
 
-        Ok(Platform { window, renderer })
+        let ecs = ecs::EcsManager::new();
+
+        Ok(Platform {
+            window,
+            renderer,
+            ecs,
+        })
     }
 
+    // TODO: avoiding an event_bus for now, but with the ECS systems may want to emit events
+    // (or components) onto the event_bus that will be responded to by downstream systems or
+    // by the platform itself so we'll need an event_bus
     pub fn update(&mut self) -> Vec<events::Event> {
+        self.ecs.run_systems();
+
         self.window.update()
     }
 }
