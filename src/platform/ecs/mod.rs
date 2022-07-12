@@ -32,7 +32,22 @@ impl EcsManager {
         Ok(id)
     }
 
-    pub fn register_system<S: system::System>() {}
+    pub fn register_component<C: 'static + component::Component>(
+        self,
+        entity_id: u16,
+        component: C,
+    ) {
+        for e in self.entities {
+            if e.get_id() == entity_id {
+                e.add_component(component);
+                return;
+            }
+        }
+    }
+
+    pub fn register_system<S: 'static + system::System>(mut self, system: S) {
+        self.systems.push(Box::new(system))
+    }
 
     pub fn run_systems(&self) {
         for system in &self.systems {
