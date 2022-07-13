@@ -1,71 +1,130 @@
-// TODO: Handle format strings
 // TODO: Empty macros in non-debug
 #[macro_export]
 macro_rules! eng_trace {
-    ($x: expr) => {{
-        tracing::trace!(target:"engine", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::trace!(target:"engine", message);
     }}
 }
 
 #[macro_export]
 macro_rules! eng_debug{
-    ($x: expr) => {{
-        tracing::debug!(target:"engine", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::debug!(target:"engine", message);
     }}
 }
 
 #[macro_export]
 macro_rules! eng_info{
-    ($x: expr) => {{
-        tracing::info!(target:"engine", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::info!(target:"engine", message);
     }}
 }
 
 #[macro_export]
 macro_rules! eng_warn{
-    ($x: expr) => {{
-        tracing::warn!(target:"engine", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::warn!(target:"engine", message);
     }}
 }
 
 #[macro_export]
 macro_rules! eng_error{
-    ($x: expr) => {{
-        tracing::error!(target:"engine", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::error!(target:"engine", message);
     }}
 }
 
 #[macro_export]
 macro_rules! app_trace {
-    ($x: expr) => {{
-        tracing::trace!(target:"application", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::trace!(target:"application", message);
     }}
 }
 
 #[macro_export]
 macro_rules! app_debug{
-    ($x: expr) => {{
-        tracing::debug!(target:"application", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::debug!(target:"application", message);
     }}
 }
 
 #[macro_export]
 macro_rules! app_info{
-    ($x: expr) => {{
-        tracing::info!(target:"application", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::info!(target:"application", message);
     }}
 }
 
 #[macro_export]
 macro_rules! app_warn{
-    ($x: expr) => {{
-        tracing::warn!(target:"application", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::warn!(target:"application", message);
     }}
 }
 
 #[macro_export]
 macro_rules! app_error{
-    ($x: expr) => {{
-        tracing::error!(target:"application", $x);
+    ($($args: expr), *) => {{
+        let mut message: String = String::from("");
+        $(
+            let tempstr: String = format!("{}", format_args!("{}", $args));
+            message.push_str(&tempstr[..]);
+        )*
+
+        tracing::error!(target:"application", message);
     }}
 }

@@ -5,6 +5,7 @@ pub mod keys;
 pub mod logging;
 pub mod logging_macros;
 pub mod renderer;
+pub mod scene;
 mod window;
 
 pub struct Platform {
@@ -12,6 +13,7 @@ pub struct Platform {
     pub ecs: ecs::EcsManager,
 
     window: window::Window,
+    scene_manager: scene::scene_manager::SceneManager,
 }
 
 impl Platform {
@@ -25,11 +27,13 @@ impl Platform {
         let renderer = renderer::RendererBuilder::new(window.get_platform_data()).build()?;
 
         let ecs = ecs::EcsManager::new();
+        let scene_manager = scene::scene_manager::SceneManager::new();
 
         Ok(Platform {
             window,
             renderer,
             ecs,
+            scene_manager,
         })
     }
 

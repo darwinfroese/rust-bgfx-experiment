@@ -11,7 +11,7 @@ use bgfx_rs::bgfx;
 use raw_window_handle::{HasRawWindowHandle, RawWindowHandle};
 
 pub(crate) struct Window {
-    sdl_context: Sdl,
+    _sdl_context: Sdl,
     sdl_window: SdlWindow,
 
     event_pump: EventPump,
@@ -24,8 +24,8 @@ impl Window {
     {
         eng_trace!("Creating a new window");
 
-        let sdl_context = sdl2::init()?;
-        let video_subsystem = sdl_context.video()?;
+        let _sdl_context = sdl2::init()?;
+        let video_subsystem = _sdl_context.video()?;
 
         let sdl_window = video_subsystem
             .window(&title.into(), width, height)
@@ -33,10 +33,10 @@ impl Window {
             .vulkan()
             .build()?;
 
-        let event_pump = sdl_context.event_pump()?;
+        let event_pump = _sdl_context.event_pump()?;
 
         let window = Window {
-            sdl_context,
+            _sdl_context,
             sdl_window,
             event_pump,
         };
