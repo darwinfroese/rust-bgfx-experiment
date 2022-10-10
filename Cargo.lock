@@ -13,9 +13,9 @@ dependencies = [
 
 [[package]]
 name = "bgfx-rs"
-version = "0.14.0"
+version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6aabd12493b0e9301b20926b1dabff41605d623b5d96737e579b9cc774596e77"
+checksum = "446c5a042513bd0c58ab423a50cb9d629bdc7bb8a5ddc212816d443c967670a1"
 dependencies = [
  "bgfx-sys",
  "bitflags",
@@ -24,9 +24,9 @@ dependencies = [
 
 [[package]]
 name = "bgfx-sys"
-version = "0.9.0"
+version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "648e0ecde06d34a8c32e8e8e797c2a01aa4ba5dba18eeb0ed68e7d52cff8a775"
+checksum = "ab94230f7535aef7cbc1b97b708e520fbd942eb4320b2c90b6c96c4ffb435f74"
 dependencies = [
  "cc",
 ]
