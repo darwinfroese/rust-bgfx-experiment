@@ -143,6 +143,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "raw-window-handle"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4f851a03551ceefd30132e447f07f96cb7011d6b658374f3aed847333adb5559"
+
+[[package]]
 name = "regex"
 version = "1.5.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -171,7 +177,7 @@ name = "rust-bgfx"
 version = "0.1.0"
 dependencies = [
  "bgfx-rs",
- "raw-window-handle",
+ "raw-window-handle 0.5.1",
  "sdl2",
  "tracing",
  "tracing-subscriber",
@@ -186,7 +192,7 @@ dependencies = [
  "bitflags",
  "lazy_static",
  "libc",
- "raw-window-handle",
+ "raw-window-handle 0.4.3",
  "sdl2-sys",
 ]
 
